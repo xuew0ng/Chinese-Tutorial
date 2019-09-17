@@ -1,6 +1,3 @@
-刘年华已完成 ios-store-locator.md 文件翻译
-@xuewOng
-
 ---
 title: Build a store locator for iOS
 description: Build a store locator that can be integrated into any iOS application.
@@ -19,13 +16,13 @@ prependJs:
 contentType: tutorial
 ---
 
-这份指南将指引您如何使用我们的**iOS商铺定位入门套件**，创建可集成到任何iOS应用程序中的自定义商铺定位地图。您可以直观地看到许多位置，或者选择特定位置以查看详细信息，以及检索从用户位置到任何商店位置的路线。我们提供了五个主题供您选择，您可以自定义商店位置到图标记号，甚至是每个商店的相关信息。
+这份指南将指引您如何使用我们的**iOS商铺定位入门套件**，创建可集成到任何iOS应用程序中的自定义商铺定位地图。您可以直观地看到许多位置，或者选择特定位置以查看详细信息，以及检索从用户位置到任何商店位置的路线。我们提供了五个主题供您选择，您可以自定义商店位置、图标记号甚至是每个商店的相关信息。
 
 {{<img alt='animated GIF of a store locator application on an iOS device' src='/help/img/ios/store-locator-final-product.gif' className='wmax360 block mx-auto' />}}
 
 ## 入门
 
-iOS商铺定位入门套件可在iOS 9.0及更高版本上运行。它可以与使用Xcode 9在Swift 3.1及更高版本的代码一起运行。下面这些是开始前您需要的资源：
+iOS商铺定位入门套件可在iOS 9.0及更高版本上运行。它可以与使用Xcode 9在Swift 3.1及更高版本的代码一起运行。以下是开始前您需要的资源：
 
 - **入门套件相关文件**. 从Github下载或者复制一份 [iOS Store Locator starter kit](https://github.com/mapbox/store-locator-ios/) 里面包括所有运行Xcode项目的必要文件。
 - **Mapbox账号和访问token**. 在Mapbox官网上注册一个账号 [mapbox.com/signup](https://www.mapbox.com/signup/). 您可以查找到访问token [access tokens](/help/how-mapbox-works/access-tokens/) 在您的账户页面 [Account page](https://www.mapbox.com/account/). 您可以将访问token添加至 Info.plist 文件中。
@@ -39,11 +36,11 @@ iOS商铺定位入门套件可在iOS 9.0及更高版本上运行。它可以与�
 
 - 五个UI主题
 - 带有商铺定位的GeoJSON数据相关示例
-- 检索路线并在地图上导航的代码 [Mapbox Directions API](https://docs.mapbox.com/api/navigation/#directions) 
+- 使用 [Mapbox Directions API](https://docs.mapbox.com/api/navigation/#directions) 检索路线并在地图上导航的代码 
 
 ### 安装须知
 
-使用 CocoaPods 安装项目所需的程序. 如果你不了解 CocoaPods，请阅读 [CocoaPods documentation](https://guides.cocoapods.org/using/getting-started.html) 。在包含入门套件的目录中运行 `pod update` 这样就能将运行程序所需的程序 (**Mapbox-iOS-SDK** and **MapboxDirections.swift**) 添加到项目中。
+使用 CocoaPods 安装项目所需的程序。 如果你不了解 CocoaPods，请阅读 [CocoaPods documentation](https://guides.cocoapods.org/using/getting-started.html) 。在包含入门套件的目录中运行 `pod update` 这样就能将运行程序所需的程序 (**Mapbox-iOS-SDK** and **MapboxDirections.swift**) 添加到项目中。
 
 运行 `pod update`后, 退出 `mapbox-store-locator.xcworkspace` (不是 `mapbox-store-locator.xcodeproj`)。 `mapbox-store-locator.xcworkspace` 包含了必要的程序。下载好pod后，用命令行输入 `open mapbox-store-locator.xcworkspace/` 
 
@@ -55,7 +52,7 @@ iOS商铺定位入门套件可在iOS 9.0及更高版本上运行。它可以与�
 
 ### `ThemeViewController`主题预览
 
-`ThemeViewController.swift` 是自定义的主要位置。通过 `ThemeViewController.swift`文件，您可以：
+`ThemeViewController.swift` 是您自定义代码的主要位置。通过 `ThemeViewController.swift`文件，您可以：
 
 - 选择一个主题
 - 设置地图样式 URL
@@ -76,7 +73,7 @@ iOS商铺定位入门套件可在iOS 9.0及更高版本上运行。它可以与�
 
 ### 主题预览
 
-Unless adjusted, the theme picker preview will be the first thing you see when the app is launched. Run your application and browse available themes by clicking on the preview image for one of five themes made by our mobile designers.除非有修改，否则主题选择预览将是您在启动应用时看到的第一个内容。运行应用程序，单击我们的设计师制作的预览图像，即可浏览相关主题。
+除非有修改，否则主题选择预览将是您在启动应用时看到的第一个内容。运行应用程序，单击我们的设计师制作的预览图像，即可浏览相关主题。
 
 {{<img alt='animated GIF of a user clicking through to preview various available themes' src='/help/img/ios/store-locator-explore-themes.gif' className='wmax360 block mx-auto' />}}
 
@@ -97,25 +94,25 @@ Unless adjusted, the theme picker preview will be the first thing you see when t
 1. 打开 `Main.storyboard`
 2. 点击 **Theme View Controller Scene**
 3. 单击右上角的 Attributes 属性检查
-4. 点击 *Is Initial View Controller* 旁边的框
+4. 选中 *Is Initial View Controller* 旁边的框
 
 ![screenshot of how to set the initial view controller in Xcode](/help/img/ios/store-locator-set-initial-view.png)
 
-运行应用程序，将显示有Mapbox Streets样式并带有多个房屋图标的地图。
+运行应用程序，将使用带有多个房屋图标的Mapbox Streets样式显示地图。
 
 {{<img alt='screenshot of a map with several markers on an iOS device using the neutral theme centered on New York City' src='/help/img/ios/store-locator-choose-a-theme.png' className='wmax360 block mx-auto' />}}
 
 ## 添加数据
 
-入门套件中包含了一个 GeoJSON 文件叫做 `stores.geojson` ，您可以在其中找到地图上所有当前可见的商店坐标。[GeoJSON](/help/glossary/geojson/) 是地理空间数据的文件格式和JSON格式的子集。这一部分，我们来更新示例数据以显示商店的实际位置。
+入门套件中包含了一个名为 `stores.geojson`的 GeoJSON 文件 ，您可以在其中找到地图上所有当前可见的商店坐标。[GeoJSON](/help/glossary/geojson/) 是地理空间数据的文件格式和JSON格式的子集。在这一部分，我们来更新示例数据以显示商店的实际位置。
 
 找到 `stores.geojson` 文件并查看其数据格式。 请注意，每个商铺位置都是一个单独的 GeoJSON _feature_ 文件。每个 feature 有四个 `properties` 来描述有关位置的一些特征, `geometry` 指的是这个 feature 是一个孤点，并且在世界中所处的位置。
 
-如果有 GeoJSON 格式的商店位置数据，可以删除当前数据并将其替换为自己的数据。
+如果您有 GeoJSON 格式的商店位置数据，可以删除当前数据并将其替换为自己的数据。
 
 ### 替换数据
 
-在这份指南中，我们为这一步提供了相关的 GeoJSON 示例。 这个例子中，我们将使用伊利诺伊周动物收容所的相关数据 [animal shelters in Cook County, Illinois](https://datacatalog.cookcountyil.gov/dataset/Area-Animal-Shelters-Map/t86e-hv9w)替换 `stores.geojson` 中的现有数据。然后就可以调整边界框并模拟用户位置来运行应用，以查看新的商店位置。
+在这份指南中，我们为这一步提供了相关的 GeoJSON 数据。 这个例子中，我们将使用伊利诺伊州动物收容所的相关数据 [animal shelters in Cook County, Illinois](https://datacatalog.cookcountyil.gov/dataset/Area-Animal-Shelters-Map/t86e-hv9w)替换 `stores.geojson` 中的现有数据。然后就能调整边界框并模拟用户位置来运行应用，以查看新的商店位置。
 
 
 ```json
@@ -296,14 +293,14 @@ Unless adjusted, the theme picker preview will be the first thing you see when t
 }
 ```
 
-为了显示真实的商店坐标，我们需要替换掉 `stores.geojson` 文件中的相关数据。打开 `stores.geojson` 文件，删除掉现有的内容，并有上面的 GeoJSON 数据替代。 示例代码和此示例中提供的数据包含每个商店位置的四个属性：
+为了显示真实的商店坐标，我们需要替换掉 `stores.geojson` 文件中的相关数据。打开 `stores.geojson` 文件，删除掉现有的内容，并由上面的 GeoJSON 数据替代。 示例代码和此示例中提供的数据包含每个商店位置的四个属性：
 
 - `name`
 - `description`
 - `hours`
 - `phone`
 
-只要所有的属性 `properties` 都与初始条件下使用的四个属性相似，这个地图就可以立刻运行了。如果有其他信息希望通过属性 `properties` 来显示，可以更新 `ThemeViewController.swift` 文件中的相关代码 &mdash; 寻找在 `// MARK: Update the attribute keys based on your data's format` 后方注释的代码。
+只要所有的属性 `properties` 都与初始条件下使用的四个属性相似，这个地图就可以立刻运行了。如果有其他信息希望通过属性 `properties` 来显示，可以更新 `ThemeViewController.swift` 文件中的相关代码 &mdash; 查找在注释 `// MARK: Update the attribute keys based on your data's format` 后方的代码。
 
 {{
     <Note
@@ -319,7 +316,7 @@ Unless adjusted, the theme picker preview will be the first thing you see when t
           <li>为数据集命名，并单击 <strong>创建</strong>.</li>
           <li>数据编辑器将会自动打开.</li>
       </ol>
-      <p>接下来，开始添加商铺坐标。可以使用数据编辑器中的地理编码器搜索位置，使用绘图工具向数据集添加新点。也可以使用数据编辑器的绘图工具更改现有要素的几何，位置和属性。</p>
+      <p>接下来，开始添加商铺坐标。可以使用数据编辑器中的地理编码器搜索位置，使用绘图工具向数据集添加新点。也可以使用数据编辑器中的绘图工具更改现有要素的几何，位置和属性。</p>
       <p>添加完每个位置后，可以 <strong>保存</strong>, 返回 <a href='https://www.mapbox.com/studio/datasets'>Datasets page</a>，点击 数据集旁边的<strong>菜单</strong><Icon name="menu" inline={true} /> 按钮, 然后点击 <strong>下载</strong> 以获取 GeoJSON 数据。</p>
     </Note>
 }}
@@ -343,11 +340,11 @@ Unless adjusted, the theme picker preview will be the first thing you see when t
       title='在设备上模拟用户位置'
       imageComponent={<BookImage />}
     >
-        <p>如果你在硬件设备上运行程序，而不是通过模拟器，你需要创建一个包含坐标的 GPX 文件 (<code>41.948</code> for latitude, <code>-87.839</code> for longitude)。命名文件 <code>Chicago</code>。然后，使用 <strong>Product > Scheme > Edit Scheme</strong> 将 <em>默认位置更改</em> to <code>Chicago</code>.</p>
+        <p>如果你在硬件设备上运行程序，而不是通过模拟器，你需要创建一个包含坐标的 GPX 文件 (<code>41.948</code> for latitude, <code>-87.839</code> for longitude)。将文件命名为 <code>Chicago</code>。然后使用 <strong>Product > Scheme > Edit Scheme</strong> 将 <em>默认位置更改为 </em> <code>Chicago</code>.</p>
     </Note>
 }}
 
-最后，调整地图预览级别。通过 `viewDidLoad` 功能，寻找 `mapView.zoomLevel` ，并将其设置为 `8`。
+最后，调整地图预览级别。通过 `viewDidLoad` 功能，找到 `mapView.zoomLevel` ，并将其设置为 `8`。
 
 ```swift
 override func viewDidLoad() {
@@ -427,7 +424,7 @@ static let neutralTheme = Color(primaryColor: UIColor(red:0.91, green:0.90, blue
 
 ## 最终产品
 
-您已经学习了iOS商铺定位套件的工作原理，并修改了定位的一些可自定义元素。
+您已经学习了iOS商铺定位套件的工作原理，并修改了定位套件中一些可自定义元素。
 
 {{<img alt='animated GIF of a store locator application on an iOS device' src='/help/img/ios/store-locator-final-product.gif' className='wmax360 block mx-auto' />}}
 
