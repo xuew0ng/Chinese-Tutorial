@@ -22,11 +22,11 @@ prependJs:
 contentType: tutorial
 ---
 
-大部分逐向导航应用假定用户希望通过最快路线到达目的地。但有时候相比于更快到达目的地，用户更想选择一条有趣或观光路线。例如：_用户在旧金山旅游。他们刚参观完海事博物馆，想去北滩吃批萨，希望沿途经过因拥有八个急转弯而被称为“世界上最弯曲街道”的九曲花街。_
+大部分逐向导航应用假定用户希望通过最快路线到达目的地。但有时候相比于更快到达目的地，用户更想选择一条有趣或观光路线。例如：_您的用户在旧金山旅游。他们刚参观完海事博物馆，现在想去北滩吃批萨，希望沿途经过因拥有八个急转弯而被称为“世界上最弯曲街道”的九曲花街。_
 
 经过九曲花街不是到达北滩的最快路线，但这条路线能提供最多的拍照机会！在大部分导航应用中，很难选出一条包含九曲花街的路线，因为这条路线并不是最便捷的。 这意味着用户会被导航到其他地方，无法满足他们想去九曲花街的需求。而 Mapbox 的 [Mapbox Map Matching API](https://docs.mapbox.com/api/navigation/#map-matching) 可以让用户绘制自定义路线，能满足他们对不同路线的需求。
 
-在这个教程中，你会创建一个允许用户定制自己旅游路线的网页应用，不考虑定制路线是否是最高效的。应用用户会在地图上用 **Mapbox GL Draw plugin** 的画图工具绘制自己的路线，然后应用将绘制的坐标发送给 **Map Matching API** 生成新行车路线的逐向导航。
+在这个教程中，你会创建一个允许用户定制自己旅游路线的网页应用，无论定制路线是否是最高效的。应用用户会在地图上用 **Mapbox GL Draw plugin** 的画图工具绘制自己的路线，然后应用将绘制的坐标发送给 **Map Matching API** 生成新行车路线的逐向导航。
 
 {{
   <DemoIframe src="/help/demos/get-started-map-matching-api/index.html" />
@@ -43,7 +43,7 @@ Mapbox Map Matching API 很像 [Directions API](https://docs.mapbox.com/api/navi
 
 - **一个 Mapbox access token。** 你的 Mapbox access tokens 可以在[账户](https://account.mapbox.com/)页面找到。
 - **Mapbox GL JS。** [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/overview/) 是一个用来构建网页地图的 JavaScript API。
-- **Mapbox GL Draw plugin.** [Mapbox GL Draw plugin](https://github.com/mapbox/mapbox-gl-draw) 用于在 Mapbox GL JS 创建的地图上添加绘制和编辑功能。
+- **Mapbox GL Draw plugin.** [Mapbox GL Draw plugin](https://github.com/mapbox/mapbox-gl-draw) 用于在 Mapbox GL JS 所创建的地图上添加绘制和编辑功能。
 - **Mapbox Map Matching API.** [Map Matching API](https://docs.mapbox.com/api/navigation/#map-matching) 将坐标嵌入 OpenStreetMap 路网，并返回路线产生的导航信息。 
 - **jQuery.** [jQuery](https://jquery.com/) 是用来给应用添加 API 请求的库。
 - **编辑器。** 自选一款可以编辑 HTML，CSS 和 JavaScript 的编辑器。
@@ -53,7 +53,7 @@ Mapbox Map Matching API 很像 [Directions API](https://docs.mapbox.com/api/navi
 
 打开编辑器创建文件 `index.html`，粘贴下方代码到编辑器。这些代码创建了页面结构，并导入 Mapbox GL JS 和 jQuery 到页面的 `<head>`。Mapbox GL JS 的 JavaScript 和 CSS 文件让你能够使用 Mapbox GL JS 功能和样式，jQuery 使你能通过 [Ajax](https://api.jquery.com/jquery.ajax/) 解析 Map Matching API 调用。
 
-在 `<body>` 的中有一个 ID 为 `map` 的 `<div>` 元素，包含页面中显示地图的容器。
+在 `<body>` 中有一个 ID 为 `map` 的 `<div>` 元素，包含页面中显示地图的容器。
 
 ```html
 <!DOCTYPE html>
@@ -184,7 +184,7 @@ var draw = new MapboxDraw({
 map.addControl(draw);
 ```
 
-保存文件刷新页面。你会看到设定的 Draw 插件控制，`line_tool` 和 `delete` 图标出现在页面右边。点击 `line_tool` 图标。在地图上点击一下开始绘制路径，再点击一次或多次来绘制路线。当你完成绘制时，在终点点击一次结束路径。地图会用蓝色虚线来表示你绘制的路径。关于更多线条样式的信息可以阅读 Mapbox GL Draw 文档的[绘制样式](https://github.com/mapbox/mapbox-gl-draw/blob/master/docs/API.md#styling-draw)一节。
+保存文件并刷新页面。你会看到设定的 Draw 插件控制，`line_tool` 和 `delete` 图标出现在页面右边。点击 `line_tool` 图标。在地图上点击一下开始绘制路径，再点击一次或多次来绘制路线。当你完成绘制时，在终点点击一次结束路径。地图会用蓝色虚线来表示你绘制的路径。关于更多线条样式的信息可以阅读 Mapbox GL Draw 文档的[绘制样式](https://github.com/mapbox/mapbox-gl-draw/blob/master/docs/API.md#styling-draw)一节。
 
 在接下来到步骤中，你会将本节的代码与获取绘制路径，收集坐标来使用 Map Matching API 的函数关联起来。
 
@@ -194,7 +194,7 @@ map.addControl(draw);
 
 ## 添加侧边栏
 
-给网页应用添加侧边栏，显示如何使用应用的说明。侧边栏也会作为显示逐向导航的地方，你会在后边的步骤里设置。
+给网页应用添加侧边栏，侧边栏显示如何使用应用的说明。侧边栏也会作为显示逐向导航的地方，你会在后边的步骤里设置。
 
 在 HTML 的 `<body>` 里添加新 `<div>`。`<div>` 会包含应用说明，以及后续的逐向导航。
 
@@ -207,7 +207,7 @@ map.addControl(draw);
 </div>
 ```
 
-添加下边的 CSS 到 HTML `<style>` 部分，设置新 `<div>` 样式：
+添加下面的 CSS 到 HTML `<style>` 部分，设置新 `<div>` 样式：
 
 ```css
 .info-box {
@@ -238,7 +238,7 @@ map.addControl(draw);
 
 ## 添加 Map Matching API
 
-Map Matching API 要求提供两个参数：查询应该使用的 `profile` 和要在 OpenStreetMap 路网中匹配的坐标 `coordinates`。`profile` 可以是 `walking`，`cycling`，`driving` 或 `driving-traffic` 中的一种。坐标是按顺序以分号隔开的 `{longitude},{latitude}` 坐标对，可以包含 2 到 100 个坐标。
+Map Matching API 需要两个参数：查询应该使用的 `profile` 和要在 OpenStreetMap 路网中匹配的坐标 `coordinates`。`profile` 可以是 `walking`，`cycling`，`driving` 或 `driving-traffic` 中的一种。坐标是按顺序以分号隔开的 `{longitude},{latitude}` 坐标对，可以包含 2 到 100 个坐标。
 
 ```
 https://api.mapbox.com/matching/v5/mapbox/{profile}/{coordinates}.json?access_token=YOUR_MAPBOX_ACCESS_TOKEN
@@ -249,7 +249,7 @@ Map Matching API 也接收几个自定义查询的可选参数。对于本应用
 - `radiuses`：分号隔开的列表，说明为了和路网匹配坐标可以被移动的最大距离。添加半径告诉 Map Matching API 必须和用户输入坐标匹配到的精确程度，用户坐标可能在 OpenStreetMap 路网上无法匹配已有位置。半径数量必须和请求坐标数量一致。
 - `steps`: 设置为 `true` 返回逐向导航。
 
-如果想了解更多 Map Matching API 及其参数，可以浏览 [Map Matching API 文档](https://docs.mapbox.com/api/navigation/#map-matching)。
+如果想了解更多关于 Map Matching API 及其参数，可以浏览 [Map Matching API 文档](https://docs.mapbox.com/api/navigation/#map-matching)。
 
 下边的查询样例使用 `driving` 配置，有两个坐标对和两个 `radiuses`，设置 `steps` 为 `true`：
 
@@ -372,7 +372,7 @@ function getMatch(coordinates, radius, profile) {
 }
 ```
 
-保存文件，刷新页面。当你用 `line_draw` 工具画路线时，生成的路线也会显示在地图上。正如你所看到的，用户绘制的线不总是和 Map Matching API 生成的路线匹配。这是由于 Map Matching API 使用用户提供的坐标时，部分坐标可能无法直接在路网上定位到，这种情况下 Map Matching API 根据你在 `radiuses` 参数中指定的 25 米半径计算最近路线坐标。
+保存文件并刷新页面。当你用 `line_draw` 工具画路线时，生成的路线也会显示在地图上。正如你所看到的，用户绘制的线不总是和 Map Matching API 生成的路线匹配。这是由于 Map Matching API 使用用户提供的坐标时，部分坐标可能无法直接在路网上定位到，这种情况下 Map Matching API 根据你在 `radiuses` 参数中指定的 25 米半径计算最近路线坐标。
 
 {{
 <AppropriateImage imageId="mapMatchingGetStartedNewLayer" alt="Screenshot showing the coordinates returned by the Map Matching API as a new layer on the map." />
@@ -428,7 +428,7 @@ function getMatch(coordinates, radius, profile) {
 }}
 
 ## 允许用户删除路线
-最后一步，添加允许用户删除他们绘制在地图上的路线。 
+最后一步，添加允许用户删除他们绘制在地图上的路线的功能。 
 
 ```js
 // 如果用户点击删除按钮，移除已存在的图层
@@ -697,5 +697,4 @@ function removeRoute() {
 想基于本教程使用的工具和技术开发产品，查阅以下资料：
 - 在 [Map Matching API 文档](https://docs.mapbox.com/api/navigation/#map-matching)中学习如何利用可选参数控制响应结果中的返回内容。
 - 在 [添加 GeoJSON 线示例](https://docs.mapbox.com/mapbox-gl-js/example/geojson-line/)和 [`addLayer` 文档](https://docs.mapbox.com/mapbox-gl-js/api/#map#addlayer)中了解更多关于如何用 Mapbox GL JS 给地图添加新图层的知识。
-- Learn more about how to use the Mapbox GL Draw plugin in the [Show drawn polygon area example](https://docs.mapbox.com/mapbox-gl-js/example/mapbox-gl-draw/) and in the [Mapbox GL Draw plugin documentation](https://github.com/mapbox/mapbox-gl-draw/tree/master/docs).
 - 在[显示绘制的多边形区域示例](https://docs.mapbox.com/mapbox-gl-js/example/mapbox-gl-draw/)和 [Mapbox GL Draw plugin](https://github.com/mapbox/mapbox-gl-draw/tree/master/docs) 文档里了解更多关于如何使用 Mapbox GL Draw 插件的知识。
