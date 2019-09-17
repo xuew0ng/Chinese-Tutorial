@@ -66,7 +66,7 @@ contentType: tutorial
 
 ## 添加地图标记
 
-添加地图标记或者 [标注](/help/glossary/annotation/) 可以通过有多种方式来实现，其中`MGLPointAnnotation` 提供了最简单的方式在地图上添加预定义的点样式。
+添加地图标记或者 [标注](/help/glossary/annotation/) 可以通过多种方式来实现，其中`MGLPointAnnotation` 提供了最简单的方式在地图上添加预定义的点样式。
 
 如下 `viewDidLoad` 函数中的代码显示了如何在纽约中央公园的位置上添加点标注。
 
@@ -171,7 +171,7 @@ contentType: tutorial
 </div>
 }}
 
-您暂时将不会看到在地图傻姑娘看到您的定位。在Simulator的菜单中选择 **Debug ‣ Location ‣ Custom Location** ，在纬度处输入 `40.74699` ，在经度处输入 `-73.98742` ，然后您就可以看见您的定位在纽约中央公园外！
+在Simulator的菜单中选择 **Debug ‣ Location ‣ Custom Location**之前，您暂时不会在地图上看到您的定位。在纬度处输入 `40.74699` ，在经度处输入 `-73.98742` ，然后您就可以看见您的定位在纽约中央公园外！
 
 {{
 <div className='my12 p2 clearfix align-center'>
@@ -179,7 +179,7 @@ contentType: tutorial
 </div>
 }}
 
-## 最后成品
+## 最终产品
 
 {{
   <IosCodeToggle
