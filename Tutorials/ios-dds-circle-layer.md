@@ -59,10 +59,10 @@ contentType: tutorial
 ## 用途
 有数不尽的方式来将属性表达式应用于您的程序，包括：
 
-- **数据驱动样式**：根据一个或者多个数据属性来指定样式规则，例如根据人口数量来对洲多边形进行着色。
+- **数据驱动样式**：根据一个或者多个数据属性来指定样式规则，例如根据人口数量来对州多边形进行着色。
 - **算术**: 对源数据进行计算，例如执行计算来动态转化单位。
 - **条件逻辑**: 使用if-then逻辑，例如根据要素中可用的属性或者名称的长度来决定显示标签的文本。
-- **字符串操作**: 接管标签文本的显示例如大写，小写，首字母大写，而无需编辑、重新准备和重新上传数据。
+- **字符串操作**: 控制标签文本的显示例如大写，小写，首字母大写，而无需编辑、重新准备和重新上传数据。
 
 
 在本教程中，您将学习如何使用表达式来根据年龄和缩放级别来设置明尼阿波利斯市历史保护委员会地标的样式。
@@ -71,7 +71,7 @@ contentType: tutorial
 
 ### 初始化地图视图
 
-在构建数据可视化之前，您需要先初始化地图视图。使用以下的代码来创建一个使用[Mapbox Light](https://www.mapbox.com/maps/light-dark/)样式的地图视图，然后以明尼苏达州明尼阿波利斯为中心：
+在构建数据可视化之前，您需要先初始化地图视图。使用以下的代码来创建一个使用[Mapbox Light](https://www.mapbox.com/maps/light-dark/)样式的地图视图，然后以明尼苏达州明尼阿波利斯市为中心：
 
 {{
   <IosCodeToggle
@@ -94,9 +94,9 @@ contentType: tutorial
 
 ### 上传数据
 
-在本指南中，您将使用[矢量tileset](/help/glossary/tileset) 来在您的程序中展示数据。您可以通过向Mapbox Studio上传之前您下载的CSV来创建一个矢量tilese：
+在本指南中，您.将使用[vector tileset](/help/glossary/tileset) 来在您的程序中展示数据。您可以通过向Mapbox Studio上传之前您下载的CSV来创建一个矢量tilese：
 
-1. 访问Mapbox Studio中的 [Tilesets 页面](https://www.mapbox.com/studio/tilesets) 页面。
+1. 访问Mapbox Studio中的 [Tilesets page](https://www.mapbox.com/studio/tilesets) 页面。
 1. 点击 **New tileset**.
 1. 选择您在本教程开始下载的CSV文件然后点击 **确认**。
 1. 右下方将出现一个弹窗显示您上传的进度
@@ -107,7 +107,7 @@ contentType: tutorial
 
 要将数据添加到地图中，您需要做以下两件事：
 
-1. 将矢量tileset作为[`MGLVectorTileSource`](https://www.mapbox.com/ios-sdk/api/{{constants.VERSION_IOS_MAPS}}/Classes/MGLVectorTileSource.html)动态地添加至地图以便在最初加载源数据。
+1. 将vector tileset作为[`MGLVectorTileSource`](https://www.mapbox.com/ios-sdk/api/{{constants.VERSION_IOS_MAPS}}/Classes/MGLVectorTileSource.html)动态地添加至地图以便在最初加载源数据。
 2. 添加一个对应的`MGLCircleStyleLayer`来引用上边的`MGLVectorTileSource`以便在地图上展示数据。
 
 源数据和图层样式应该在地图加载完成后添加，因此两者的代码都应该在委托方法{{<a href="https://www.mapbox.com/ios-sdk/api/{constants.VERSION_IOS_MAPS}/Protocols/MGLMapViewDelegate.html#/c:objc(pl)MGLMapViewDelegate(im)mapView:didFinishLoadingStyle:"><code className="highlighter-rouge">-mapView:didFinishLoadingStyle:</code></a>}}中。
@@ -132,7 +132,7 @@ contentType: tutorial
 
 ### 使用表达式来计算每个地标的年龄
 
-下一步，您将写表达式来根据每个历史地标的年龄来设置圆圈的半径。在这个明尼阿波利斯开源数据数据门户提供的数据文件中，没有提供历史地标的年龄，但是提供了建造年份。
+下一步，您将根据每个历史地标的年龄编写一个表达式来设置每个圆的半径。在这个明尼阿波利斯开源数据数据门户提供的数据文件中，没有提供历史地标的年龄，但是提供了建造年份。
 
 您可以根据当前年份使用算式来计算每一个地标的年龄，而不是编辑源数据并重新上传。在计算了每个地标的年龄以后，您可以根据每个地标计算出来的年龄设置[`circleRadius`](https://www.mapbox.com/ios-sdk/api/{{constants.VERSION_IOS_MAPS}}/Classes/MGLCircleStyleLayer.html#/c:objc(cs)MGLCircleStyleLayer(py)circleRadius)的绘制样式。
 
@@ -174,7 +174,7 @@ layer.circleRadius = [NSExpression expressionWithFormat:@"(2018 - Constructi) / 
 </div>
 }}
 
-那看起来更好。减少圆的大小让地图在当前缩放级别下更易读的。在当前缩放级别仍有圆圈重叠，所以让我们添加一个缩放表达式来根据地图当前缩放级别调整圆的半径。
+那看起来更好。减少圆的大小让地图在当前缩放级别下更易读。在当前缩放级别仍有圆圈重叠，所以让我们添加一个缩放表达式来根据地图当前缩放级别调整圆的半径。
 
 ### 添加缩放表达式
 
@@ -215,7 +215,7 @@ layer.circleRadius = [NSExpression expressionWithFormat:@"(2018 - Constructi) / 
 </div>
 }}
 
-## 完成的产品
+## 最终产品
 
 您已经使用适用于iOS的Mapbox地图SDK的表达式自定义数据样式！
 
