@@ -19,7 +19,7 @@ prependJs:
 contentType: tutorial
 ---
 
-适用于iOS的Mapbox导航SDK为您提供了向iOS程序添加逐向导航所需的所有工具。您可以在几分钟内启动并运行我们即插即用的导航视图控制器，或者使用我们的路由和导航的核心组件来构建一个完全自定义的程序。在这篇指南中，您将创建一个最小的导航程序，通过选择地图上的一个点开始导航，并更改导航视图控制器的样式。
+适用于iOS的Mapbox导航SDK为您提供了向iOS程序添加逐向导航所需的所有工具。您可以在几分钟内启动并运行我们即插即用的导航视图控制器，或者使用我们的路径规划和导航的核心组件来构建一个完全自定义的程序。在这篇指南中，您将创建一个最小的导航程序，通过选择地图上的一个点开始导航，并更改导航视图控制器的样式。
 
 {{
 <div className='my12 p2 clearfix align-center'>
@@ -40,7 +40,7 @@ contentType: tutorial
 
 ###  安装框架
 
-您需要将`MapboxNavigation`添加到您的构建中才能使用Mapbox导航SDK，地图服务和导向服务。
+您需要将`MapboxNavigation`添加到您的工程中才能使用Mapbox导航SDK，地图服务和导向服务。
 
 Cocoa pods:
 
@@ -57,7 +57,7 @@ github "mapbox/mapbox-navigation-ios" ~> {{constants.VERSION_IOS_NAV}}
 
 ### 导入框架
 
-在您将SDK导入构建中之后，您还需要将以下模块导入到您的`ViewController`中以便在程序中访问到它们。
+在您将SDK导入工程中之后，您还需要将以下模块导入到您的`ViewController`中以便在程序中访问到它们。
 
 {{
   <IosCodeToggle
@@ -75,7 +75,7 @@ github "mapbox/mapbox-navigation-ios" ~> {{constants.VERSION_IOS_NAV}}
 
 ## 初始化地图
 
-在按照上一步将这些类导入后，您可以初始化一个地图。使用`NavigationMapView`来显示一个Mapbox默认样式的街道地图。`NavigationMapView`是`MGLMapView`的子类， `MGLMapView`提供了对导航程序特别有用的额外功能(例如在地图上显示路径)。`directionsRoute`变量稍后将用于引用由Mapbox导航SDK生成的路由。将以下的代码添加到视图控制器中。
+在按照上一步将这些类导入后，您可以初始化一个地图。使用`NavigationMapView`来显示一个Mapbox默认样式的街道地图。`NavigationMapView`是`MGLMapView`的子类， `MGLMapView`提供了对导航程序特别有用的额外功能(例如在地图上显示路径)。`directionsRoute`变量稍后将用于引用由Mapbox导航SDK生成的路径。将以下的代码添加到视图控制器中。
 
 {{
   <IosCodeToggle
@@ -115,7 +115,7 @@ github "mapbox/mapbox-navigation-ios" ~> {{constants.VERSION_IOS_NAV}}
 
 ### 展示用户位置
 
-对应这个项目，您将获取用户位置和用户放置在地图上的点之间的规划路线。为此，您需要在您的程序中配置位置权限来获取设备位置。在您可以将用户位置绘制在地图上之前，您需要先征得用户的许可，并简要说明您的程序将如何使用他们的位置数据。
+对于这个项目，您将获取用户位置和用户放置在地图上的点之间的规划路线。为此，您需要在您的程序中配置位置权限来获取设备位置。在您可以将用户位置绘制在地图上之前，您需要先征得用户的许可，并简要说明您的程序将如何使用他们的位置数据。
 
 通过在Info.plist文件中设置 `NSLocationAlwaysUsageDescription` 或者 `NSLocationWhenInUseUsageDescription` 键来配置位置权限。我们建议将值设置为以下的字符串：`在地图上显示您的位置以及帮助优化OpenStreetMap`，作为程序位置信息的使用说明。当用户首次打开您的程序时，他们将会看到这个提示询问他们是否同意您的程序访问其位置信息。
 
@@ -151,11 +151,11 @@ github "mapbox/mapbox-navigation-ios" ~> {{constants.VERSION_IOS_NAV}}
 
 ### 添加一个目的地
 
-在这个程序中，您将假设用户想要检索一条在他们当前位置与他们在地图上选择的任意一点之间的规划路线。下一步，您将创建当用户点击并按住地图（[长按](https://developer.apple.com/documentation/uikit/uilongpressgesturerecognizer)）时，向地图添加一个标记或者[标注](/help/glossary/annotation/)的功能。这个目的地将计算导航路径时使用。
+在这个程序中，您将假设用户想要检索一条在他们当前位置与他们在地图上选择的任意一点之间的规划路线。下一步，您将创建当用户点击并按住地图（[长按](https://developer.apple.com/documentation/uikit/uilongpressgesturerecognizer)）时，向地图添加一个标记或者[标注](/help/glossary/annotation/)的功能。在计算导航路径时将使用此目的地。
 
 #### 创建一个手势识别器
 
-首先创建一个名为`didLongPress`的方法。在这个方法中，获取用户所选的点并将其保存至名为`point`的变量中。然后，将点转换为地理坐标并将其保存在名为`coordinate`的变量中。在您定义的地理坐标新建一个[`MGLPointAnnotation`](https://docs.mapbox.com/ios/api/maps/{{constants.VERSION_IOS_MAPS}}/Classes/MGLPointAnnotation.html)并设置标题。标题稍后将在标注被选中时在气泡框中显示。在标注配置好后，将其添加至地图。如下所示，在您的视图控制器添加新的`didLongPress`方法。
+首先创建一个名为`didLongPress`的方法。在这个方法中，获取用户所选的点并将其保存至名为`point`的变量中。然后，将点转换为地理坐标并将其保存在名为`coordinate`的变量中。在您定义的`coordinate`中新建一个[`MGLPointAnnotation`](https://docs.mapbox.com/ios/api/maps/{{constants.VERSION_IOS_MAPS}}/Classes/MGLPointAnnotation.html)并设置标题。标题稍后将在标注被选中时在气泡框中显示。在标注配置好后，将其添加至地图。如下所示，在您的视图控制器添加新的`didLongPress`方法。
 
 {{
   <IosCodeToggle
@@ -174,7 +174,7 @@ github "mapbox/mapbox-navigation-ios" ~> {{constants.VERSION_IOS_NAV}}
 }}
 
 
-稍后，您将添加另外一个方法来计算您原点到目的地之间的规划路线。
+稍后，您将添加另外一个方法来计算您的位置到目的地之间的规划路线。
 
 更新`viewDidLoad`方法，向您的`NavigationMapView`添加`UILongPressGestureRecognizer`，以便其接受新建的手势识别器。
 
@@ -202,7 +202,7 @@ Mapbox Directions API 需要至少两个航点来生成规划路线。您可以�
 
 在这个项目中，您将使用两个航点 **原点** 和 **目的地**。对于这种情况，原点是用户的位置，目的地是用户放置在地图上指定的点。对于每个航点，您将使用`Waypoint`类来指定纬度、经度以及用于描述位置的名称。
 
-通过创建包含以下代码的`calculateRoute`新方法，开始创建一个完整的导航体验：
+通过创建包含以下代码的`calculateRoute`新方法，开始创建一个完整的导航经验：
 
 {{
   <IosCodeToggle
@@ -232,7 +232,7 @@ Mapbox Directions API 需要至少两个航点来生成规划路线。您可以�
 
 ## 在地图上绘制规划路径
 
-现在您您已经创建了一个计算规划路径的方法，创建另一个方法来在地图上 _绘制_ 规划路径。 创建一个变量引用您在入口视图控制器类中的规划路径对象，然后创建一个接收`Route` 对象作为参数的方法。使用输入的`Route` 对象的地理坐标来新建一个`MGLPolylineFeature`。在创建`MGLPolylineFeature`之后，将其添加至相应的样式图层中，同时配置各种样式属性，例如颜色和线宽。在您的视图控制器中创建一个名为`drawRoute`的新方法，
+现在您已经创建了一个计算规划路径的方法，创建另一个方法来在地图上 _绘制_ 规划路径。 首先创建一个变量，以引用整个视图控制器类中的路径对象，然后创建一个接收`Route` 对象作为参数的方法。使用输入的`Route` 对象的地理坐标来新建一个`MGLPolylineFeature`。在创建`MGLPolylineFeature`之后，将其添加至相应的样式图层中，同时配置各种样式属性，例如颜色和线宽。在您的视图控制器中创建一个名为`drawRoute`的新方法，
 
 
 
@@ -303,9 +303,9 @@ Mapbox Directions API 需要至少两个航点来生成规划路线。您可以�
 }}
 
 
-## 完成的产品
+## 最终产品
 
-允许程序然后选择并按住地图来添加标注。选中标注来显示一个气泡框，然后选中气泡框来初始化一个原点与您目的地之间的导航序列。您使用适用于iOS的Mapbox导航SDK构建了一个小的导航程序。您可以在GitHub上找到[指南的完整代码](https://github.com/mapbox/navigation-ios-examples/blob/master/DocsCode/NavigationTutorial/)
+运行程序然后选择并按住地图来添加标注。选中标注来添加一个气泡框，然后选中气泡框来初始化一个原点与您目的地之间的导航序列。您使用适用于iOS的Mapbox导航SDK构建了一个小的导航程序。您可以在GitHub上找到[指南的完整代码](https://github.com/mapbox/navigation-ios-examples/blob/master/DocsCode/NavigationTutorial/)
 
 {{
 <div className='my12 p2 clearfix align-center'>
