@@ -50,7 +50,7 @@ contentType: tutorial
 
 您可以在 [Mapbox Studio](https://www.mapbox.com/studio) 中上传GeoTIFF，也可以使用[Mapbox Uploads API](https://docs.mapbox.com/api/maps/#uploads)以编程方式上传。 有关使用Mapbox Studio上传的详细信息，请阅读[Mapbox Studio手册](https://www.mapbox.com/studio-manual/)的[Uploads](https://www.mapbox.com/studio-manual/overview/geospatial-data/)部分。有关使用Uploads API的更多信息，请阅读[Uploads API 文档](https://docs.mapbox.com/api/maps/#uploads)。
 
-## 最终产物
+## 最终产品
 
 您对自定义图像进行了地理配准并上传到了您的Mapbox帐户。 现在您可以将您的栅格瓦片格式的图像作为栅格瓦片源添加到任何Mapbox项目中。 这是使用Mapbox GL JS将图像添加到地图的示例。
 
