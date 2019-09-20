@@ -19,7 +19,7 @@ prependJs:
 contentType: tutorial
 ---
 
-本教程展示了如何使用Mapbox等时线接口。此接口使用Mapbox的交通港式配置与行程时间，创建一个运行用户估计自己可以在一定的时间内，步行、骑车或开车走多远的Web应用。
+本教程展示了如何使用Mapbox等时线接口。此接口使用Mapbox的路径规划配置与行程时间，创建一个用户估计自己可以在一定的时间内，步行、骑车或开车走多远的Web应用。
 
 {{
   <DemoIframe src="/help/demos/get-started-isochrone-api/index.html" />
@@ -30,7 +30,7 @@ contentType: tutorial
 
 - **Mapbox的接口许可.** 你的接口许可在你的 [用户界面](https://account.mapbox.com/).
 - **Mapbox GL JS.** [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/overview/) 是一个可以创建在线地图的 JavaScript API.
-- **Mapbox 等时线 API.** The [等时线 API](https://docs.mapbox.com/api/navigation/#isochrone) 计算在指定的时间内，可以从一个地点到达的区域，返回可到达区域，并将结果的面或者线展示为可以在地图上绘制的等值线。  
+- **Mapbox Isochrone API.** [Isochrone API](https://docs.mapbox.com/api/navigation/#isochrone) 计算从某个位置在指定时间内可到达的区域，并将结果的面或者线展示为可以在地图上绘制的等值线。  
 - **Mapbox Assembly.** [Assembly](https://labs.mapbox.com/assembly/) 是一个可以用来设计你的应用的用户界面的开源的CSS框架。
 - **jQuery.** [jQuery](https://jquery.com/) 是一个用来添加APP请求到应用中的 JavaScript 库.
 - **文本编辑器.** 用你选择的文本编辑器来编辑HTML, CSS 和 JavaScript代码.
@@ -38,9 +38,9 @@ contentType: tutorial
 ## 使用等时线 API
 一个等时线API请求需要三个参数：
 
-- **`profile`:**  查询接口所需要到的Mapbox的交通方式配置.  `walking` 代表步行或者远足的移动时间, `cycling` 代表骑车, 或者 `driving` 代表驾车方式计算移动时间.
+- **`profile`:**  查询应使用的Mapbox路径配置文件。.  `walking` 代表步行或者远足的耗时, `cycling` 代表骑车, 或者 `driving` 代表驾车所用的时间.
 - **`coordinates`:** 一对 `{经度,纬度}` 坐标，表示等时线的中心位置。
-- **`contours_minutes`:** Times 用来描述一分钟内移动的耗时。可以用一个逗号分隔的四段时间组成的列表来描述，最大耗时为60分钟。
+- **`contours_minutes`:** 描述旅行的持续时间的时间。可以用一个逗号分隔的四段时间组成的列表来描述，最大耗时为60分钟。
 
 ```
 https://api.mapbox.com/isochrone/v1/mapbox/{profile}/{coordinates}.json?{contours_minutes}&access_token=YOUR_MAPBOX_ACCESS_TOKEN
@@ -48,11 +48,11 @@ https://api.mapbox.com/isochrone/v1/mapbox/{profile}/{coordinates}.json?{contour
 
 等时线API还可以接受一些可选择的参数来自定义查询。这个APP中你将学习使用一个可选参数。
 
-- `polygons`: 此参数明确了是否返回等时线为一个GeoJson格式的面或者线。当 `polygons=true` 时等时线闭合为一个环，并且返回为面格式。
+- `polygons`: 此参数明确了是否返回一个GeoJson格式的面或者线。当 `polygons=true` 时等时线闭合为一个环，并且返回为面格式。
 
 想获得更多关于等时线API和他的其他可选参数，请参考[Isochrone API documentation](https://docs.mapbox.com/api/navigation/#isochrone).
 
-此等时线查询样例使用 `driving` 交通方式配置,  `contours_minutes` 设置为15, 并将 `polygons` 参数设置为 `true`:
+此等时线查询样例使用 `driving` 方式的路径配置,  `contours_minutes` 设置为15, 并将 `polygons` 参数设置为 `true`:
 
 ```
 https://api.mapbox.com/isochrone/v1/mapbox/driving/-117.17282,32.71204?contours_minutes=15&polygons=true&access_token={{ <UserAccessToken /> }}
@@ -62,7 +62,7 @@ https://api.mapbox.com/isochrone/v1/mapbox/driving/-117.17282,32.71204?contours_
 
 
 ## 创建地图
-开始此APP，你首先需要使用 [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/api/) 创建地图：
+开始此应用，你首先需要使用 [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/api/) 创建地图：
 
 1. 打开你的文本编辑器.
 1. 创建一个文件并命名为 `index.html`.
@@ -132,7 +132,7 @@ https://api.mapbox.com/isochrone/v1/mapbox/driving/-117.17282,32.71204?contours_
 
 ## 添加侧边栏
 
-接下来，添加给web app添加一个侧边栏，来使用户可以选择交通方式和耗时。
+接下来给web app添加一个侧边栏，使用户可以选择交通方式和耗时。
 
 在你的HTML页面的 `<body>` 里， 添加一个新的 `<div>`。 这个 `<div>` 保存着app的选项和用户定义样式的 Assembly classes。      
 
@@ -176,7 +176,7 @@ https://api.mapbox.com/isochrone/v1/mapbox/driving/-117.17282,32.71204?contours_
 </div>
 ```
 
-这段代码以及应用到其中的 Assembly 类创建了一个的侧边栏，其中有用户可以选择他们所想要的交通方式（步行、骑自行车或者开车）和需要花费的时间（10,20或者30分钟）的控件。
+这段代码以及其中的 Assembly 类创建了一个的侧边栏，其中有用户可以选择他们所想要的交通方式（步行、骑自行车或者开车）和需要花费的时间（10,20或者30分钟）的控件。
 
 保存你的工作，并且刷新页面。侧边栏将会在页面的左侧展示出来。虽然看起来没什么问题，但点击按钮并不会有任何反应 &mdash; 至少现在没有。下一步，你将添加一个等时线API的调用，这样你就可以将其传递到用户界面，创建一个交互的app。
 
@@ -215,7 +215,7 @@ function getIso() {
 getIso();
 ```
 
-当你还没有将用来绘制响应中描述的等时线的图层添加到地图中时候，这段代码会将查询的结果打印在控制台。保存你的工作并且刷新页面，打开你的浏览器开发工具仪表。你将会看到等时线API响应对象被打印在了控制台。
+当你还没有将用来绘制响应中描述的等时线的图层添加到地图中时候，这段代码会将查询的结果打印在控制台。保存你的工作并且刷新页面，打开你的浏览器开发工具面板。你将会看到等时线API响应对象被打印在了控制台。
 
 {{
 <AppropriateImage imageId="isochroneConsoleLog" alt="Screenshot showing the results of the Isochrone API request logged to the console" />
@@ -223,7 +223,7 @@ getIso();
 
 ## 绘制等时圈
 
-在最后一步中，你使用 `console.log` 语句来查看API的响应结果。但是在这个app中，你想要将等时圈绘制在地图上！在 Mapbox GL JS 中实现此效果，你需要设置一个新的 _source_ 和 一个新的  _layer_。在 Mapbox GL JS 的文档中获取更多有关 [`addSource`](https://docs.mapbox.com/mapbox-gl-js/api/#map#addsource) 和 [`addLayer`](https://docs.mapbox.com/mapbox-gl-js/api/#map#addlayer) 方法的信息。
+在最后一步中，你使用 `console.log` 语句来查看API的响应结果。但是在这个app中，你想要将等时圈绘制在地图上！为了在 Mapbox GL JS 中实现此效果，你需要设置一个新的 _source_ 和 一个新的  _layer_。在 Mapbox GL JS 的文档中获取更多有关 [`addSource`](https://docs.mapbox.com/mapbox-gl-js/api/#map#addsource) 和 [`addLayer`](https://docs.mapbox.com/mapbox-gl-js/api/#map#addlayer) 方法的信息。
 
 从你的 JavaScript 代码底部移除 `getIso();` 并将其替换成如下的代码：
 
@@ -332,8 +332,7 @@ marker.setLngLat(lngLat).addTo(map);
 
 ## 最终产品
 
-你已经使用Mapbox的等时圈API创建了一个app，来可视化人可以在给定的时间内走、骑车或者开车走多远。
-
+你已经使用 Mapbox Isochrone API创建了一个app，可视化一个人在给定的时间内可以走多远，骑车或开车的距离。
 
 {{
  <DemoIframe src="/help/demos/get-started-isochrone-api/index2.html" />
@@ -507,5 +506,5 @@ marker.setLngLat(lngLat).addTo(map);
 
 如果想熟练的掌握这篇教程中所使用到的工具和技术，可以拓展学习以下的资源：
 
-- 学习更多关于如何更好的使用等时圈API，可选择参数如何影响在响应对象中获取的内容，可参阅 [Isochrone API documentation](https://docs.mapbox.com/api/navigation/#isochrone).
+- 学习更多关于如何更好的使用Isochrone API，可选择参数如何影响在响应对象中获取的内容，可参阅 [Isochrone API documentation](https://docs.mapbox.com/api/navigation/#isochrone).
 - 学习更多关于使用 Mapbox GL JS 在地图中添加图层请参阅 [Add a GeoJSON line example](https://docs.mapbox.com/mapbox-gl-js/example/geojson-line/) 和 [`addLayer` documentation](https://docs.mapbox.com/mapbox-gl-js/api/#map#addlayer).
